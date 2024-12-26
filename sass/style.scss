@@ -1,0 +1,230 @@
+/* Color palette */
+:root {
+    --slate-dark: #282828;
+    --slate-medium: #3c3836;
+    --slate-light: #504945;
+    --cloud-dark: #928374;
+    --cloud-medium: #a89984;
+    --cloud-light: #bdae93;
+    --ivory-dark: #ebdbb2;
+    --ivory-medium: #f2e5bc;
+    --ivory-light: #fbf1c7;
+    --book-cloth: #d65d0e;
+    --kraft: #d79921;
+    --manilla: #fe8019;
+    --black: #1d2021;
+    --white: #fbf1c7;
+    --focus: #83a598;
+    --error: #cc241d;
+
+    /* Theme variables */
+    --bg0: var(--ivory-light);
+    --bg1: var(--ivory-medium);
+    --fg0: var(--slate-dark);
+    --fg1: var(--cloud-dark);
+    --accent: var(--error);
+    --link: var(--book-cloth);
+    --code-bg: var(--ivory-dark);
+}
+
+/* Dark theme */
+.dark {
+    --bg0: var(--slate-dark);
+    --bg1: var(--slate-medium);
+    --fg0: var(--ivory-light);
+    --fg1: var(--cloud-light);
+    --accent: var(--focus);
+    --link: var(--kraft);
+    --code-bg: var(--slate-medium);
+}
+
+/* Base styles */
+html {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+body {
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 45rem;
+    background: var(--bg0);
+    color: var(--fg0);
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid var(--accent);
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+    padding: 1rem 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 2rem 0 1rem;
+    line-height: 1.2;
+}
+
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Code blocks */
+pre {
+    padding: 1rem;
+    overflow-x: auto;
+    background: var(--code-bg);
+    border-radius: 4px;
+}
+
+code {
+    padding: 0.2em 0.4em;
+    background: var(--code-bg);
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Tables */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    /* Removed table margin as wrapper provides it */
+}
+
+th,
+td {
+    padding: 0.5rem;
+    border: 1px solid var(--fg1);
+    text-align: left;
+}
+
+th {
+    background: var(--bg1);
+}
+
+/* Blockquotes */
+blockquote {
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid var(--fg1);
+    color: var(--fg1);
+}
+
+/* Lists */
+ul,
+ol {
+    padding-left: 2rem;
+}
+
+li {
+    margin: 0.5rem 0;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Table of Contents */
+.table-of-contents {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: var(--bg1);
+    border-radius: 4px;
+}
+
+.table-of-contents h2 {
+    margin-top: 0;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+/* Navigation */
+nav {
+    margin: 1rem 0;
+}
+
+nav a {
+    margin: 0 0.5rem;
+}
+
+/* Post meta */
+.post-meta {
+    color: var(--fg1);
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        padding: 0.5rem;
+    }
+
+    .table-of-contents {
+        display: none;
+    }
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.theme-toggle .light-theme {
+    display: none;
+}
+
+.dark .theme-toggle .light-theme {
+    display: inline;
+}
+
+.dark .theme-toggle .dark-theme {
+    display: none;
+}
+
+/* Footnotes */
+.footnotes {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--fg1);
+}

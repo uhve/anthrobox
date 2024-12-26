@@ -1,0 +1,82 @@
+{# base.html #}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.title }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+    <script>
+        // Check for dark mode preference and system settings
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        }
+    </script>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path='rss.xml') }}">
+    <meta name="description" content="{{ config.description }}">
+    <meta name="author" content="{{ config.author }}">
+    {% if config.taxonomies and config.taxonomies.tags %}
+    <meta name="keywords" content="{{ config.taxonomies.tags | join(sep=', ') }}">
+    {% endif %}
+    <meta property="og:title" content="{{ config.title }}">
+    <meta property="og:description" content="{{ config.description }}">
+    <meta property="og:type" content="website">
+</head>
+
+<body>
+    <!-- Top panel -->
+    <header>
+        <nav>
+            {% for item in config.extra.header_items %}
+            {% if loop.first %}{% else %}<span>|</span>{% endif %}
+            <a href="{{ get_url(path=item.url, trailing_slash=true) }}">{{ item.name }}</a>
+            {% endfor %}
+        </nav>
+        <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">
+            <span class="light-theme">&#9788;</span>
+            <span class="dark-theme">&#9789;</span>
+        </button>
+        <hr>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Bottom panel -->
+    <footer>
+        <hr>
+        <nav>
+            {{ now() | date(format="%Y") }}
+            <span>&#x1F12F;
+                {% if config.extra.license %}
+                {{ config.extra.license }}
+                {% endif %}
+                <a href="mailto:{{ config.extra.email }}">{{ config.author }}</a>
+            </span>
+            <br>
+            {% for item in config.extra.footer_items %}
+            {% if loop.first %}{% else %}<span>|</span>{% endif %}
+            <a href="{{ item.url }}">{{ item.name }}</a>
+            {% endfor %}
+
+        </nav>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark')
+                localStorage.theme = 'light'
+            } else {
+                document.documentElement.classList.add('dark')
+                localStorage.theme = 'dark'
+            }
+        }
+    </script>
+</body>
+
+</html>

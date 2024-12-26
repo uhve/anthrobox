@@ -1,0 +1,63 @@
+base_url = "https://avinashmadhukar.com"
+title = "manpages type shi"
+description = "aphorism of systems"
+default_language = "en"
+output_dir = "public"
+compile_sass = true
+minify_html = true
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+author = "Avinash Madhukar"
+taxonomies = [{ name = "tags", feed = true, paginate_by = 2 }]
+build_search_index = false
+generate_sitemap = true
+generate_robots_txt = true
+
+
+[markdown]
+highlight_code = true
+render_emoji = false
+external_links_target_blank = false
+external_links_no_follow = false
+external_links_no_referrer = false
+smart_punctuation = true
+lazy_async_image = true
+bottom_footnotes = false
+
+
+[link_checker]
+internal_level = "warn"
+external_level = "warn"
+
+
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
+paths_keep_dates = true
+
+
+[search]
+include_title = true
+include_description = true
+include_date = true
+include_path = true
+include_content = true
+truncate_content_length = 100
+
+
+[extra]
+header_items = [
+  { url = "/writings/", name = "writings" },
+  { url = "/tags/", name = "tags" },
+]
+
+footer_items = [
+  { url = "/feed.xml", name = "RSS" },
+  { url = "/sitemap.xml", name = "sitemap" },
+  { url = "/robots.txt", name = "robots" },
+]
+
+email = "avinashmadhukar@gmail.com"
+license = "0BSD"
+cite_key = "madhukar_avinash"

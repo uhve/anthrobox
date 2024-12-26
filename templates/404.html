@@ -1,0 +1,13 @@
+{# 404.html #}
+{% extends "base.html" %}
+
+{% block title %}404 Not Found | {{ config.title }}{% endblock %}
+
+{% block content %}
+<article class="not-found">
+    <h1>404</h1>
+    <p>Page not found</p>
+    <p>The page you're looking for doesn't exist or has been moved.</p>
+    <p><a href="{{ config.base_url }}">← Return home</a></p>
+</article>
+{% endblock content %}

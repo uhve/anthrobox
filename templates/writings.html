@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="posts">
+    {% for post in paginator.pages %}
+    <article class="post-entry">
+        <time>{{ post.date | date(format="%Y-%m-%d") }}</time>
+        <span>|</span>
+        <a href="{{ post.permalink }}">{{ post.title }}</a>
+
+        {% if post.taxonomies.tags %}
+        <span class="tags">
+            <span>|</span>
+            {% for tag in post.taxonomies.tags %}
+            <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">#{{ tag }}</a>
+            {% if not loop.last %}<span>,</span>{% endif %}
+            {% endfor %}
+        </span>
+        {% endif %}
+
+    </article>
+    {% endfor %}
+</section>
+
+{% if paginator %}
+<nav class="pagination">
+    {% if paginator.previous %}
+    <a href="{{ paginator.previous }}">← Previous</a>
+    {% endif %}
+
+    <span class="pages">
+        {% for i in range(start=1, end=paginator.number_pagers+1) %}
+        {% if i == paginator.current_index %}
+        <span class="current">{{ i }}</span>
+        {% else %}
+        <a href="{{ paginator.base_url }}{{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+    </span>
+
+    {% if paginator.next %}
+    <a href="{{ paginator.next }}">Next →</a>
+    {% endif %}
+</nav>
+{% endif %}
+{% endblock content %}

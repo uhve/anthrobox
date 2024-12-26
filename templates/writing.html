@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+
+{% block head %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ page.title }}",
+    "datePublished": "{{ page.date }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ config.author }}"
+    }
+}
+</script>
+{% endblock head %}
+
+{% block content %}
+<article class="post">
+    <header class="post-header">
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+            <time>{{ page.date | date(format="%Y-%m-%d") }}</time>
+
+            {% if page.taxonomies.tags %}
+            <span class="tags">
+                <span>|</span>
+                {% for tag in page.taxonomies.tags %}
+                <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">#{{ tag }}</a>
+                {% if not loop.last %}<span>,</span>{% endif %}
+                {% endfor %}
+            </span>
+            {% endif %}
+            <span>|</span>
+            <span class="reading-time">{{ page.word_count }} words, {{ page.reading_time }} min read</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        <div class="table-of-contents">
+            <h2>Table of Contents</h2>
+            {% if page.toc %}
+            <ul>
+                {% for h1 in page.toc %}
+                <li>
+                    <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+                    {% if h1.children %}
+                    <ul>
+                        {% for h2 in h1.children %}
+                        <li>
+                            <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {{ page.content | safe }}
+    </div>
+
+    <footer class="post-footer">
+        <div class="citation-notice">
+            <h3>Citing this article</h3>
+            <p>If you want to cite this article, please use one of the following formats:</p>
+
+            <h4>APA Style</h4>
+            <blockquote>
+                {{ config.author }} ({{ page.date | date(format="%b %Y") }}). "{{ page.title }}".
+                Retrieved from {{ current_url | safe }} on {{ now() | date(format="%Y-%m-%d") }}.
+            </blockquote>
+
+            <h4>BibTeX</h4>
+            <pre><code>@article{ {{ config.extra.cite_key | default(value=config.author | slugify) }}_{{ page.date | date(format="%Y") }}_{{ page.title | slugify }},
+            title   = { {{- page.title -}} },
+            author  = { {{- config.author -}} },
+            journal = { {{- config.base_url -}} },
+            year    = { {{- page.date | date(format="%Y") -}} },
+            month   = { {{- page.date | date(format="%b") | lower -}} },
+            url     = { {{- current_url | safe -}} }
+            }
+            </code></pre>
+        </div>
+        <nav class="post-navigation">
+            {% if page.earlier %}
+            <a class="prev" href="{{ page.earlier.permalink }}">← {{ page.earlier.title }}</a>
+            {% endif %}
+
+            {% if page.later %}
+            <a class="next" href="{{ page.later.permalink }}">{{ page.later.title }} →</a>
+            {% endif %}
+        </nav>
+    </footer>
+</article>
+{% endblock content %}
